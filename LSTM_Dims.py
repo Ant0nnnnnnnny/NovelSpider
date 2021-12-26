@@ -1,4 +1,5 @@
 import pandas as pd
+import tensorflow as tf
 from keras.layers import LSTM
 from keras.layers import Dropout
 from keras.models import Sequential
@@ -133,7 +134,7 @@ class LSTMModel:
 
         self.__transmit()
         self.__model = Sequential()
-        self.__model.add(LSTM(units, input_shape=(self.__train_X.shape[1], self.__train_X.shape[2])))
+        self.__model.add(tf.compat.v1.keras.layers.CuDNNLSTM(units, input_shape=(self.__train_X.shape[1], self.__train_X.shape[2])))
         self.__model.add(Dropout(dropout_pram))
         self.__model.add(Dense(self.__output_dim))
         self.__model.compile(loss=loss, optimizer=optimizer)
