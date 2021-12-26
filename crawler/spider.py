@@ -51,6 +51,7 @@ class Crawler:
 
     def __crawler(self, tag, url_list, headers, timeout, callback):
         for url in url_list:
+            r = None
             print('Downloading: ' + url)
             try:
                 r = requests.get(
@@ -71,7 +72,7 @@ class Crawler:
             self.__crawler(tag=key,
                            url_list=value, headers=self.__headers_dict[key] if key in self.__headers_dict else self.__headers, timeout=time_out,callback= self.__func_dict[key])
             time_after = time.time()
-            print(str(key)+': '+ str(time_after-time_before)+' s.')
+            print('-----'+str(key)+': '+ str(time_after-time_before)+' s.')
 
     def get_data(self):
         return self.__result_dict
