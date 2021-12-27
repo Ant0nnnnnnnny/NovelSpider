@@ -192,3 +192,15 @@ class LSTMModel:
 
         self.__model = load_model(path)
 
+
+
+def c2n(seq: str) -> tuple:
+    '''
+    将文本序列编码为数字.
+    返回一个np数组, 一个dict. np数组为文本序列的数字编码. dict可以根据数字序列解码为文本. 
+    '''
+    vocab = set(seq)
+    vocab_to_int = {c: i for i, c in enumerate(vocab)}
+
+    int_to_vocab = dict(enumerate(vocab))
+    return np.array([vocab_to_int[c] for c in seq], dtype=np.int32), int_to_vocab
