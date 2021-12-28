@@ -57,7 +57,7 @@ class Crawler:
                 r = requests.get(
                     url=url, headers=headers, timeout=timeout)
                 r.raise_for_status()
-                print('Downloading successfully.')
+                print('Download successfully.')
             except:
                 print('Error in :' + url)
 
@@ -73,6 +73,28 @@ class Crawler:
                            url_list=value, headers=self.__headers_dict[key] if key in self.__headers_dict else self.__headers, timeout=time_out,callback= self.__func_dict[key])
             time_after = time.time()
             print('-----'+str(key)+': '+ str(time_after-time_before)+' s.')
+    def run_once(self,url,tag,callback,headers = None,timeout = 3):
+        '''
+        一次性爬取读入.
+        '''
+   
+        r = None
+        print('Downloading: ' + url)
+        try:
+            r = requests.get(
+                url=url, headers=headers if headers != None else self.__headers, timeout=timeout)
+            r.raise_for_status()
 
+            print('Download successfully.')
+
+        except:
+            print('Error in :' + url)
+
+        result = callback(r)
+        return {tag:result}
+
+    def clear(self):
+        self.__result_dict = {}
+        
     def get_data(self):
         return self.__result_dict

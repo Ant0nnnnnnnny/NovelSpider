@@ -15,6 +15,8 @@ def url_filter(r: requests.Response) -> list:
     '''
     小说基本信息以及url爬取回调函数.
     '''
+    if r == None:
+        return ['']
     raw_data = json.loads(r.text)
     data = [{'book_name': x['articlename'], 'introduction':x['intro'],
              'url':x['url_list']} for x in raw_data]
@@ -25,6 +27,8 @@ def chapter_filter(r:requests.Response)->list:
     '''
     小说每章信息的爬取回调函数.
     '''
+    if r == None:
+        return ['']
     html_dom =  etree.HTML(r.text)
     result = html_dom.xpath('//div[@id = "chaptercontent"]/text()')
     result = re.sub('\s','',''.join(result))
