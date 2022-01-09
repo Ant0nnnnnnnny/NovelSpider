@@ -63,9 +63,9 @@ if __name__ == '__main__':
         book_list = pandas.read_csv('../data/book_list/'+index+'.csv')
         names = book_list['name']
         urls = book_list['url']
-        # 每种爬_本书
+        # 每种爬10本书
         for j in range(0,10):
-            # 每本书爬_章
+            # 每本书爬100章
             mission_dict[index+names[j]] = [urls[j]+str(i)+'.html' for i in range(1,100)]
     print(mission_dict)
     # 总任务数量
